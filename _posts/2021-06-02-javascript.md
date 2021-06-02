@@ -1,6 +1,6 @@
 ---
-title: Welcome to Jekyll
-categories: [dev]
+title: javascript
+categories: [javascript]
 comments: true
 ---
 
