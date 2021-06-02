@@ -1,4 +1,4 @@
-title: Catbook #Your awesome title
+title: 바미의 개발블로그 #Your awesome title
 email: #youremail@domain.com
 description: > # this means to ignore newlines until "baseurl"
   Write an awesome description for your new site here. You can edit this
@@ -20,7 +20,7 @@ user:
   name: Beomseok Choi
   pic: /assets/img/cat.jpg
   picAlt: "catbook"
-  job: Begginer Developer
+  job: Beginer Developer
   aboutme: true # comment this out if you don't need the 'about' page.
 
 exclude:
