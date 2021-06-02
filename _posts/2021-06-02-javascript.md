@@ -75,7 +75,8 @@ var tomato;
 console.log(tomato);
 
 var tomato;
-// tomato라는 변수가 선언되기전에 사용되었다. ReferenceError가 발생할것처럼 보이지만 undefined가 출력된다.
+// tomato라는 변수가 선언되기전에 사용되었다. 
+// ReferenceError가 발생할것처럼 보이지만 undefined가 출력된다.
 ```
 변수 선언문이 코드의 선두로 끌어 올려진 것처럼 동작하는 자바스크립트 고유의 특징을 Variable hoisting 변수 호이스팅 이라고 한다.
 
@@ -83,5 +84,77 @@ var tomato;
 
 ## 값의 할당
 
+변수에 값을 assignment 할당할 때는 할당 연산자 =를 사용한다. 할당 연산자는 우변의 값을 좌변의 변수에 할당한다.
 
+
+```javascript
+var tomato; // 변수 선언
+tomato = 80; // 값의 할당
+
+var tomato = 80; // 변수 선언과 값의 할당
+```
+
+변수 선언과 값의 할당을 하나의 statement문으로 작성해도 변수 선언은 런타임 이전에 실행되지만 값의 할당은 런타임에 실행된다.
+
+```javascript
+console.log(tomato) // undefined
+
+var tomato = 80; // 변수 선언과 값의 할당
+
+console.log(tomato) //  80
+```
+첫번째 console.log()에서는 아직 값의 할당이 이루어지기전이기 때문에 런타임 전 변수선언과 함께 암묵적으로 할당된 값인 undefined가 출력되고 두번째 console.log()에서는 값의 할당이 이루어진 후에 실행되었기 때문에 80이 출력된다.
+이 경우 메모리에서는 저장되어있던 undefined가 삭제되고 같은 메모리 공간에 할당 값 80을 저장하는 것이 아니라 새로운 메모리 공간을 확보하고 그곳에 값 80이 할당된다. 이전 값 undefined는 어떠한 식별자와도 연결되어있지 않고 이러한 garbage value불필요한 값은 가비지 콜렉터garbage collector 에 의해 메모리에서 자동 해제된다. 단 언제 해제될지는 예측할 수 없다.
+
+
+## 값의 재할당과 상수
+
+```javascript
+var tomato = 80; // 변수 선언과 값의 할당
+tomato = 90; // 값의 재할당
+```
+var 키워드로 선언한 변수는 값을 재할당할 수 있다. 재할당은 변수에 저장된 값을 다른 값으로 변경한다. 하지만 constant 상수는 저장된 값을 변경할 수 없다. 상수는 한번 정해지면 변하지 않는 값이다. 즉, 단 한번만 할당할 수 있는 변수다. 상수는 const 키워드로 선언한다.
+
+```javascript
+const tomato = 80; // 상수 선언과 값의 할당
+tomato = 90; // 상수의 값을 변경하려하기 때문에 에러가 발생한다.
+```
+
+## 식별자 네이밍 규칙
+
+1. 식별자는 특수문자를 제외한 문자, 숫자, 언더스코어(_), 달러($)를 포함할 수 있다.
+2. 단, 식별자는 특수문자를 제외한 문자, 언더스코어(_), 달러($)로 시작해야한다. 숫자로 시작하는 것은 허용하지 않는다.
+3. 예약어(프로그래밍 언어에서 이미 사용되고 있거나 사용될 예정인 단어)는 식별자로 사용할 수 없다.
+   
+자바스크립트는 대소문자를 구별한다
+```javascript
+const tomato;
+const TOMATO;
+// 별개의 변수로 취급된다
+```
+
+변수 이름은 변수의 존재 목적을 쉽게 이해할 수 있도록 의미를 명확히 표현해야 한다. 좋은 변수 이름은 코드의 가독성을 높인다.
+
+```javascript
+const x = 3; // 변수 x가 의미하는 바가 명확하지 않다.
+const price = 1000 ; // 변수 price의 값은 가격을 의미한다.
+```
+
+### Naming convention 네이밍 컨벤션
+
+Naming convention 네이밍 컨벤션은 하나 이상의 영어 단어로 구성된 식별자를 만들 때 가독성 좋게 단어를 한눈에 구분하기 위해 규정한 명명 규칙이다. 아래 세 가지 유형의 네이밍 컨벤션이 자주 사용된다. 
+자바스크립트에서는 일반적으로 변수나 함수의 이름에는 카멜 케이스를 사용하고 생성자 함수, 클래스의 이름에는 파스칼케이스를 사용한다.
+
+```javascript
+// camelCase 카멜 케이스
+var tomatoSpaghetti
+
+// snake_case 스네이크 케이스
+var tomato_spaghetti
+
+// PascalCase 파스칼 케이스
+var TomatoSpaghetti
+
+```
+ 
 
