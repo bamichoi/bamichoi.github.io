@@ -1,6 +1,6 @@
 ---
 title: JavaScript 1. 변수의 기초
-categories: [javascript]
+categories: [js]
 comments: true
 ---
 
