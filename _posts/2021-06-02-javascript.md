@@ -1,6 +1,6 @@
 ---
-title: JavaScript 1. 변수의 기초
-categories: [js]
+title: JavaScript 01. 변수의 기초
+categories: [javascript]
 comments: true
 ---
 

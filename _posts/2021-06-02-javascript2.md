@@ -1,6 +1,6 @@
 ---
-title: JavaScript 2. 표현식과 문 
-categories: [js]
+title: JavaScript 02. 표현식과 문 
+categories: [javascript]
 comments: true
 ---
 
