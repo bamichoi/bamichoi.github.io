@@ -292,3 +292,85 @@ var result = tomato % 2 ? '홀수' : '짝수';
 console.log(result) // 짝수
 // 2 % 2 는 0이고 0은 false로 암묵적 타입 변환되어 세번째 피연산자가 평가되어 반환되었다.
 ```
+
+### 논리 연산자
+
+ Logical operator논리 연산자는 우항과 좌항의 피연산자(부정 논리 연산자의 경우 우항의 피연산자)를 논리 연산자라고 한다.
+
+- || : 논리합(OR)
+- && : 논리곱(AND)
+- ! : 부정(NOT)
+  
+ ```javascript
+ // 논리합(||) 연산자
+true || true; // true
+true || false; // true
+false || true; // true
+false || false; // false
+ 
+
+ // 논리곱(&&) 연산자
+true && true; // ture
+true && false; // flase
+false && true; // false
+false && false; // false
+
+// 논리부정(!) 연산자
+!true; // false
+!false; // true
+ ```
+
+논리 부정(!) 연산자는 언제나 불리언 값을 반환한다. 하지만 피연산자가 반드시 불리언 값일 필요는 없다. 만약 피연산자가 불리언 값이 아니면 불리언 타입으로 암묵적 타입 변환된다.
+
+```javascript
+!0; // true
+!'Hello' // false
+```
+논리합(||) 또는 논리곱(&&) 연산자 표현식의 평가 결과는 불리언 값이 아닐 수도 있다. 논리합(||) 또는 논리곱(&&) 연산자 표현식은 언제나 2개의 연산자 중 어느 한쪽으로 평가된다(단축평가).
+
+### 쉼표 연산자
+
+쉼표(,) 연산자는 왼쪽 피연산자부터 차례대로 피연산자를 평가하고 마지막 피연산자의 평가가 끝나면 마지막 피연산자의 평가 결과를 반환한다.
+
+```javascript
+var x, y, z;
+x = 1, y = 2, z = 3 // 3
+```
+
+### 그룹 연산자
+
+소괄호'()'로 피연산자를 감싸는 그룹 연산자는 자신의 피연산자인 표현식을 가장 먼저 평가한다. 따라서 그룹 연산자를 사용하면 연산자의 우선순위를 조정할 수 있다. 그룹 연산자는 연산자 우선순위가 가장 높다.
+
+```javascript
+10 * 2 + 3; // 23
+
+//그룹 연산자를 사용하여 우선순위를 조절
+10 * ( 2 + 3 ); // 50
+```
+
+### typeof 연산자
+
+typeof 연산자는 피연산자의 데이터 타입을 문자열로 반환한다. typeof 연산자가 반환하는 문자열은 7개의 데이터 타입과 정확하게 일치하지는 않는다. typeof 연산자는 7가지 문자열 "string", "number", "boolean", "undefined", "symbol", "object, "function" 중 하나를 반환한다. null을 반환하는 경우는 없고 함수의 경우에는 function을 반환한다. 
+
+```javascript
+typeof '' // "string"
+typeof 1 // "number"
+typeof NaN // "number"
+typeof true // "boolean"
+typeof undefined // "undefined"
+typeof Syombol() // "symbol"
+typeof null // "null"
+typeof [] // "object"
+typeof {} // "objecgt"
+typeof new Date() // "object"
+typeof /test/gi // "object"
+typeof funtion(){} // "object"
+)
+```
+
+typeof 연산자로 null의 값을 연산해 보면 "null"이 아닌 "object"를 반환한다. 따라서 null 타입인지 확인할 때에는 typeof 연산자 대신에 일치 연산자(===)를 사용해야한다.
+
+선언하지 않은 연산자를 typeof 연산자로 연산해보면 ReferenceError가 아닌 undefined를 반환한다.
+```javascript
+typeof tomato; // undefined
+```
