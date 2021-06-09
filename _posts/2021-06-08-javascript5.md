@@ -136,3 +136,173 @@ switch (표현식) {
 
 if...else 문의 조건식은 불리언 값으로 평가되어야 하지만 switch 문의 표현식은 불리언 값보다는 문자열이나 숫자 값인 경우가 많다. 다시 말해 if...else문은 논리적 참, 거짓으로 실행할 코드 블록을 결정하는 반면 switch 문은 다양한 상황(case)에 따라 실행할 코드 블록을 결정할 때 사용한다.
 
+break 문은 코드 블록에서 탈출하는 역할을 한다. break 문이 없다면 case 문의 표현식과 일치하더라도 실행 흐름이 다음 case 문으로 연이어 이동한다. 표현식의 평가 결과와 일치하는 case 문으로 실행흐름이 이동하여 문을 실행하더라도 switch 문을 탈출하지 않고 이후의 모든 case 문과 default 문을 실행한다. 이를 fall through 폴 스루라고 한다. default 문에는 일반적으로 break 문을 생략한다. default 문은 switch 문의 맨 마지막에 위치하므로 default 문의 실행이 종료되면 switch 문을 빠져나온다. 
+
+
+```javascript 
+// break 문이 없는 경우.
+var day = 7
+var dayname
+
+switch (day) {
+    case 1 : dayname = 'Mon'
+    case 2 : dayname = 'Tue'
+    case 3 : dayname = 'Wed'
+    case 4 : dayname = 'Thu'
+    case 5 : dayname = 'Fri'
+    case 6 : dayname = 'Sta'
+    case 7 : dayname = 'Sun'
+    default : dayname = 'invalid dayname'
+}
+
+console.log(dayname); // invalid dayname
+```
+
+```javascript 
+// break 문이 있는 경우.
+var day = 7
+var dayname
+
+switch (day) {
+    case 1 : dayname = 'Mon'
+        break;
+    case 2 : dayname = 'Tue'
+        break;
+    case 3 : dayname = 'Wed'
+        break;
+    case 4 : dayname = 'Thu'
+        break;
+    case 5 : dayname = 'Fri'
+        break;
+    case 6 : dayname = 'Sta'
+        break;
+    case 7 : dayname = 'Sun'
+        break;
+    default : dayname = 'invalid dayname'
+}
+
+console.log(dayname); // 'Sun'
+```
+
+break 문을 생략한 폴스루가 유용한 경우도 있다. 폴스루를 활용해 여러 개의 case 문을 하나의 조건으로 사용할 수도 있다.
+
+```javascript
+// 윤년인지 판별하여 2월의 일수를 계산하는 예제.
+
+var year = 2000; // 2000년도는 윤년으로 2월이 29일이다.
+var month = 2
+var days = 0;
+
+switch (month) {
+    case 1: case 3:  case 5: case 7: case 8: case 10: case 12:
+        days = 31;
+        break;
+    case 4: case 6: case 9: case 11:
+        days = 30;
+        break;
+    case 2:
+        // 1. 연도가 4로 나누어 떨어지는 해는 윤년이다.
+        // 2. 연도가 4로 나누어 떨어지더라도 연도가 100으로 나누어 떨어지는 해는 평년이다.
+        // 3. 연도가 400으로 나누어 떨어지는 해는 윤년이다
+        days = ((year % 4 === 0 && year % 100 !== 0)) || (year % 400 === 0)) ? 29 : 28;
+        break
+    default:
+        console.log('Invalid month');
+}
+
+console.log(days) // 29
+```
+
+만약 if...else 문으로 해결할 수 있다면 switch 문보다 if...else 문을 사용하는 편이 좋다. 하지만 조건이 너무 많아서 if...else 문보다 switch 문을 사용했을 때 가독성이 더 좋다면 switch 문을 사용하는 것이 좋다.
+
+## 반복문
+
+Loop statement 반복문은 조건식의 평가 결과가 참인 경우 코드 블록을 실행한다. 그 후 조건식을 다시 평가하여 여전히 참인 경우는 코드 블록을 다시 실행하고 거짓인 경우 실행을 멈춘다. 자바스크립트는 세 가지 반복문인 for 문, while 문, do...while 문을 제공한다. 자바스크립트는 이외에도 forEach() 메소드, for ...in 문, for ...of 문과 같이 반복문을 대체할 수 있는 다양한 기능을 제공한다.
+
+### for 문
+
+for 문은 조건식이 거짓으로 평가될 때까지 코드 블록을 반복 실행한다. 
+
+```javascript
+for (변수 선언문 또는 할당문; 조건식; 증감식) {
+     조건식이 참인 경우 반복 실행될 문;
+}
+```
+
+
+```javascript
+for (var i = 0; i < 2; i++ ){
+    console.log(i);
+}
+
+// 0
+// 1
+```
+1) for 문을 실행하면 먼저 변수 선언문 var i = 0 이 실행된다. 변수 선언문은 단 한번만 실행된다.
+2) 변수 선언문의 실행이 종료되면 조건식이 실행된다. 현재 변수 i 의 값은 0이므로 조건식의 평가 결과는 ture다.
+3) 조건식의 평가 결과가 true이므로 코드블록이 실행된다. 
+4) 코드 블록의 실행이 종료되면 증감식 i++ 이 실행되어 변수 i 의 값은 1이 된다.
+5) 다시 조건식이 실행된다. 변수 i 의 값이 1이므로 평과 결과는 true이다.
+6) 조건식의 평가 결과가 true이므로 코드 블록이 다시 실행된다.
+7) 코드 블록의 실행이 종료되면 증감식 i++ 이 실행되어 변수 i 의 값은 2가 된다.
+8) 다시 조건식이 실행된다 현재 변수 i 의 값은 2이므로 평가 결과는 false이다. 조건식의 평가 결과가 false 이므로 for 문의 실행이 종료된다.
+
+
+for 문 내에 for 문을 중첩해 사용할 수 있다. 이를 중첩 for 문이라 한다.
+```javascript
+// 주사위의 두 눈의 합이 6이 되는 모든 경우의 수를 출력하는 코드.
+for (var i =  1; i <= 6; i++){
+    for (var j = 1; j <= 6; j++){
+        if (i + j === 6) console.log(`[${i}, ${j}]`);
+    }
+}
+
+// [1, 5]
+// [2, 4]
+// [3, 3]
+// [4, 2]
+// [5, 1]
+```
+
+### While 문
+
+while 문은 주어진 조건식의 평가 결과가 참이면 코드 블록을 계속해서 반복 실행한다. for 문은 반복 횟수가 명확할때 주로 사용하고 while 문은 반복 횟수가 불명확할때 주로 사용한다. while 문은 조건문의 평가 결과가 거짓이 되면 코드 블록을 실행하지 않고 종료한다. 만약 조건식의 평가 결과가 불리언 값이 아니면 불리언 값으로 강제 변환하여 논리적 참, 거짓을 구별한다.
+
+```javascript
+var count = 0;
+
+// count가 3보다 작을 때까지 코드 블록을 계속 반복 실행한다.
+while (count < 3) {
+    console.log(count);
+    count++
+}
+
+// 0
+// 1
+// 2
+```
+
+조건식의 평가 결과가 언제나 참이면 무한루프가 된다. 무한 루프에서 탈출하기 위해서는 코드 블록 내에 if 문으로 탈출 조건을 만들고 break 문으로 코드 블록을 탈출한다.
+```javascript
+// 무한루프
+while (ture) {...} 
+```
+
+```javascript
+var count = 0;
+
+while (true) {
+    console.log(count);
+    count++;
+    if (count === 3) break;
+    // count가 3면 코드 블록을 탈출한다.
+}
+
+// 0
+// 1
+// 2
+```
+
+### do...while 문
+
+ 
