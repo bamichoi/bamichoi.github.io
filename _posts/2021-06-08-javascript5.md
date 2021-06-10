@@ -305,4 +305,77 @@ while (true) {
 
 ### do...while 문
 
- 
+do...while 문은 코드 블록을 먼저 실행하고 조건식을 평가한다. 따라서 코드 블록은 무조건 한 번 이상 실행된다.
+
+```javascript
+var tomato = 0;
+
+// tomato가 3보다 작을때까지 코드 블록을 계속 반복 실행한다.
+do {
+    console.log(tomato);
+    tomato++;
+} while (count < 3);
+
+// 0 (조건식의 평가에 앞서 코드블록이 먼저 한번 실행된다.)
+// 1
+// 2
+```
+
+### break 문
+
+break 문은 레이블 문(식별자가 붙은 문), 반복문(for, for...in, for...of, while, do...while), switch 문의 코드 블록을 탈출한다. 이 외의 문의 코드 블록에 break를 사용하면 SyntaxError(문법 에러)가 발생한다.
+
+```javascript
+if (ture) {
+    break; // Uncaught SyntaxError: Illegal break statement
+}
+```
+
+Label statement 레이블 문은 식별자가 붙은 문을 말한다. 레이블 문은 프로그램의 실행 순서를 제어하는데 사용한다. switch의 case 문과 default 문도 레이블 문이다. 레이블 문을 탈출하려면 break 문에 레이블 식별자를 지정한다.
+
+```javascript
+// tomato라는 식별자가 붙은 레이블 블록문
+tomato: {
+    console.log(1);
+    break tomato; // tomato 레이블 문을 탈출한다.
+    console.log(2);
+}
+
+console.log('Done!');
+
+// 1
+// 'Done!'
+```
+
+중첩된 for 문의 내부 for 문에서 break 문을 실행하면 내부 for 문을 탈출하여 외부 for 문으로 진입힌다. 내부 for 문이 아닌 외부 for 문을 탈출하려면 레이블 문을 사용한다.
+
+```javascript
+// tomato 라는 식별자가 붙은 레이블 for 문
+tomato : for (var i = 0; i < 3, i++) {
+    for (var j = 0; j < 3, j++) {
+        if (i + j === 3) break tomato; // 조건이 참일 때 tomato라는 외부 for 문을 탈출한다.
+        console.log(i, j);
+    }
+}
+console.log('Done!');
+```
+
+레이블 문은 중첩된 for 문의 외부로 탈출할 때 유용하지만 일반적으로 권장되지 않는다. 레이블 문을 사용하면 프로그램의 흐름이 복잡해져서 가독성이 나빠지고 에러를 발생시킬 가능성이 높아지기 때문이다. break 문을 반복문, switch 문에서 사용할 경우에는 break 문에 레이블 식별자를 지정하지 않는다. 
+
+### continue 문
+
+continue 문은 반복문의 코드 블록 실행을 현 지점에서 중단하고 반복문의 증감식으로 실행흐름을 이동시킨다. break 문처럼 반복문을 탈출하지는 않는다.
+
+```javascript
+// 문자열에서 특정 문자의 개수를 세는 예제.
+var string = 'Hello World.';
+var search = 'l';
+var count = 0;
+
+for (var i = 0; i < string.length; i++) {
+    if (string[i] !== search) continue; // i 번째 문자가 l이 아니면 이후 코드 실행을 중단하고 반복문의 증감식으로 이동.
+    count++; // i 번째 문자가 l이면 count에 1 을 더해준다. continue 문이 실행되면  이 문은 실행되지 않는다. 
+}
+
+console.log(count); // 3
+```
