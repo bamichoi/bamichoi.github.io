@@ -127,7 +127,7 @@ Array + '' // "function Array() { [native code] }"
 +undefined //  NaN
 
 // 심벌 타입
-+(Symbo()) // TypeError : Cannot convert a Symbol value to a string
++(Symbol()) // TypeError : Cannot convert a Symbol value to a string
 
 // 객체 타입
 +{} // NaN
@@ -138,3 +138,79 @@ Array + '' // "function Array() { [native code] }"
 
 빈문자열(''), 빈 배열([]), null, false는 true는 1로 변환된다. 객체와 빈 배열이 아닌 배열, undefined는 변환이 되지 않아 NaN이 된다.
 
+### 불리언 타입으로 변환
+
+
+if 문이나 for 문과 같은 제어문 또는 삼항 조건 연산자의 조건식은 불리언 값. 즉 논리적 참/거짓으로 평가되어야 하는 표현이다. 자바스크립트 엔진은 조건식의 평가 결과를 불리언 타입으로 암묵적 타입 변환한다. 이때 자바스크립트 엔진은 불리언 타입이 아닌 값을 Truthy 값(참으로 평가되는 값) 또는 Falsy 값(거짓으로 평가되는 값)으로 구분한다.즉 Truthy 값은 true로 Falsy 값은 false로 암묵적 타입 변환된다.
+
+```javascript
+if ('') console.log('1');
+if (ture) console.log('2');
+if (0) console.log('3');
+if ('str') console.log('4');
+if (null) console.log('5');
+```
+
+아래 값들은 false로 평가되는 Falsy 값이다.
+- false
+- undefined
+- null
+- 0, -0
+- NaN
+- '' (빈 문자열)
+
+Falsy 값 외의 모든 값은 모두 true로 평가되는 Truthy 값이다.
+
+```javascript
+// 아래의 조건들은 모두 참으로 코드 블로글 실행한다.
+if (!false) console.log("tomato") //tomato
+if (!undefined) console.log("tomato") //tomato
+if (!null) console.log("tomato") //tomato
+if (!0) console.log("tomato") //tomato
+if (!NaN) console.log("tomato") //tomato
+if (!'') console.log("tomato") //tomato
+```
+
+
+## 명시적 타입 변환
+
+개발자의 의도에 따라 명시적으로 타입을 변경하는 방법은 다양하다. 표준 빌트인 생성자 함수(String, Number, Boolean)를 new 연산자 없이 호출하는 방법과 빌트인 메소드를 사용하는 방법. 그리고 앞에서 살펴본 암묵적 타입 변환을 이용하는 방법이 있다.
+
+
+### 문자열 타입으로 변환
+
+- String 생성자 함수를 new 연산자 없이 호출하는 방법
+- Object.prototype.toString 메소드를 사용하는 방법
+- 문자열 연결 연산자를 이용하는 방법
+
+```javascript
+// 1. String 생성자 함수를 new 연산자 없이 호출하는 방법
+// 숫자 타입 => 문자열 타입
+String(1); // "1"
+String(NaN); // "NaN"
+String(Infinity) // "Infinity"
+
+// 불리언 타입 => 문자열 타입
+String(true) // "true"
+String(false) // "false"
+
+// 2. Object.prototype.toString 메소드를 사용하는 방법
+// 숫자 타입 => 문자열 타입
+(1).toString(); // 1
+(NaN).toString(); // "NaN"
+(Infinity).toString(); // "Infinity"
+
+// 불리언 타입 => 문자열 타입
+(true).toString(); // "true"
+(false).toString(); // "false"
+
+// 3. 문자열 연결 연산자를 이용하는 방법
+// 숫자 타입 => 문자열 타입
+1 + ''; // "1"
+NaN + ''; // "NaN"
+Infinity + ''; // "Infinity"
+
+// 불리언 타입 => 문자열 타입
+true + ''; // "true"
+false + ''; // "false"
+```
