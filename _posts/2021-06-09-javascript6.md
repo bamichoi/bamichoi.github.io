@@ -380,3 +380,85 @@ if (!done) message = '미완료';
 message = done || '미완료';
 console.log(message); // 미완료
 ```
+
+단축평가는 다음과 같은 유용하게 사용될 수 있다.
+
+- 객체가 가리키기를 기대하는 변수가 null 또는 undefined가 아닌지 확인하고 프로퍼티를 참조할 때. 객체는 키와 값으로 구성된 프로퍼티의 집합이다. 만약 객체를 가리키기를 기대하는 변수의 값이 객체가 아니라 null 또는 undefined인 경우 객체의 프로퍼티를 참조하면 TypeError 타입에러가 발생한다. 에러가 발생하면 프로그램이 강제 종료된다.
+
+```javascript
+var tomato = null;
+var value = tomato.value; // TypeError: Cannot read property 'value' of null
+```
+
+이때 단축 평가를 사용하면 에러를 발생시키지 않는다.
+
+```javascript
+var tomato = null
+
+// tomato가 null이나 undefined와 같은 Falsy 값이면 tomato로 평가되고 Truthy 값이면 tomato.value로 평가된다.
+var value = tomato && tomato.value // null
+```
+
+- 함수 매개변수에 기본값을 설정할 때. 함수를 호출할때 인수를 전달하지 않으면 매개변수에는 undefined가 할당된다. 이땨ㅐ 단축 평가를 사용해 매개변수의 기본값을 설정하면 undefined로 인해 발생할 수 있는 에러를 방지할 수 있다.
+
+```javascript
+// 단축 평가를 사용한 매개변수의 기본값 설정 
+function getStringLength(str) {
+    str = str || '';
+    return str.length;
+}
+
+getStringLength(); // 0
+getStringLength('hi'); // 2 
+
+// ES6dml 매개변수의 기본값 설정
+function getStringLength(str = '') {
+    return str.length;
+}
+
+getStringLength(); // 0
+getStringLength('hi'); // 2 
+```
+
+### 옵셔널 체이닝 연산자
+
+Optional Chaining옵셔널 체이닝 연산자 ?.는 좌항의 피연산자가 undefined인 경우 undefined를 반환하고 그렇지 않으면 우항의 프로퍼티 참조를 이어간다.
+
+```javascript
+var tomato = null;
+
+var value = tomato?.value;
+console.log(value); // undefined
+```
+
+옵셔널 체이닝 연산자 ?.는 객체를 가리키기를 기대하는 변수가 null 또는 undefined가 아닌지 확인하고 프로퍼티를 참조할때 유용하다. 옵셔널 체이닝 연산자 ?.가 도입되기 이전에는 논리 연산자 &&를 사용한 단축 평가를 통해 변수가 null 또는 undefined인지 확인했다.
+
+
+```javascript
+var tomato = null;
+
+var value = tomato && tomato.value;
+console.log(value); // null
+```
+논리 연산자 &&는 좌항 피연산자가 false로 평가되는 Falsy 값(false, undefined, null 0, -0, NaN, '')이면 좌항 피연산자를 그대로 반환한다. 하지만 0이나 ''은 객체로 평가될 때도 있다.
+
+```javascript
+var tomato = ''
+
+// 문자열의 길이(length)를 참조한다.
+var length = tomato && tomato.length;
+
+// 문자열의 길이를 참조하지 못한다
+console.log(length); // ''
+```
+
+하지만 옵셔널 체이닝 연산자 ?.는 좌항 피연산자가 false로 평가되는 Falsy 값(false, undefined, null 0, -0, NaN, '')이라도 null 또는 undefined가 아니면 우항의 프로퍼티 참조를 이어간다.
+
+```javascript
+var tomato = ''
+
+// 문자열의 길이(length)를 참조한다. 좌항 피연산작 Falsy 값이라도 null 또는 undefined가 아니면 우항의 프로퍼티 참조를 이어간다.
+var length = tomato?.length;
+console.log(length); // 0
+```
+
