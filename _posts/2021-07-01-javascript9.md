@@ -692,3 +692,116 @@ console.log(res); // 15
 ```
 
 ### 재귀 함수
+
+함수가 자기 자신을 호출하는 것을 recursive call이라 한다. recursive function재귀 함수는 자기 자신을 호출하는 행위, 즉 재귀 호출을 수행하는 함수를 말한다.
+
+재귀 함수는 반복되는 처리를 위해 사용한다. 예를 들어, 10부터 0까지 출력하는 함수를 구현해보자.
+
+```javascript
+function countdown(n) {
+    for (var i = n; i >= 0; i--) console.log(i)
+}
+
+countdown(10);
+```
+
+위 countdown 함수는 문제없이 잘 작동한다. 하지만 반복문 없이도 구현할 수 있는 방법이 있다. 바로 재귀함수를 사용하는 것이다.
+
+```javascript
+function countdown(n) {
+    if (n < 0) return;
+    console.log(n);
+    countdown(n - 1); // 재귀 호출
+}
+
+countdown(10);
+```
+
+이처럼 자기 자신을 호출하는 재귀 함수를 사용하면 반복되는 처리를 반복문 없이 구현할 수 있다. 예를 들어, 팩토리얼(계승)은 재귀 함수로 간단히 구현할 수 있다.
+
+```javascript
+// 팩토리얼(계승)은 1부터 자신까지의 모든 양의 정수의 곱이다.
+// n! = 1 * 2 * ... * (n-1) * n
+function factorial(n){
+    // 탈출 조건: n이 1 이하일 때 재귀호출을 멈춘다.
+    if (n <= 1) return 1;
+    // 재귀 호출
+    return n * factorial(n - 1);
+}
+
+console.log(factorial(0)); // 0! = 1
+console.log(factorial(1)); // 1! = 1
+console.log(factorial(2)); // 2! = 2 * 1 = 2
+console.log(factorial(3)); // 3! = 3 * 2 * 1 = 6
+console.log(factorial(4)); // 4! = 4 * 3 * 2 * 1 = 24
+console.log(factorial(5)); // 5! = 5 * 4 * 3 * 2 * 1 = 120
+```
+
+factorial 함수 내부에서 자기 자신을 호출할때 사용한 식별자 factorial은 함수 이름이다. 함수 이름은 함수 몸체 내부에서만 유효하다. 따라서 함수 내부에서는 함수 이름을 사용해 자기 자신을 호출할 수 있다. 함수 표현식으로 정의한 함수 내부에서는 함수 이름은 물론 함수를 가리키는 식별자로도 자기 자신을 재귀 호출할 수 있다. 단, 함수 외부에서 함수를 호출할 때는 반드시 함수를 가리키는 식별자로 해야 한다.
+
+```javascript
+// 함수 표현식
+var factorial = function tomato(n) {
+    // 탈출 조건: n이 1 이하일 때 재귀 호출을 멈춘다.
+    if (n <= 1) return 1;
+    // 함수를 가리키는 식별자로 자기 자신을 재귀 호출
+    return n * factorial(n - 1);
+
+    // 함수 이름으로 자기 자신을 재귀 호출할 수도 있다.
+    // console.log(factorial === tomato); // true
+    // return n * tomato(n - 1);
+};
+
+console.log(factorial(5)); // 5! = 5 * 4 * 3 * 2 * 1 = 120
+```
+
+재귀 함수는 자신을 무한 재귀 호출한다. 따라서 재귀 함수 내에는 재귀 호출을 멈출 수 있는 탈출 조건을 반드시 만들어야 한다. 위 예제의 경우 인수가 1 이하일 때 지귀 호출을 멈춘다. 탈출 조건이 없으면 함수가 무한 호출되어 stack overflow스택 오버플로우 에러가 발생한다.
+
+대부분의 재귀 함수는 for문이나 while문으로 구현 가능하다. 위 팩토리얼 예제는 반복문으로 구현하면 다음과 같다.
+
+```javascript
+function factorial(n) {
+    if (n <= 1) return 1;
+
+    var res = n;
+    while (--n) res *= n;
+    return res;
+}
+
+console.log(factorial(0)); // 0! = 1
+console.log(factorial(1)); // 1! = 1
+console.log(factorial(2)); // 2! = 2 * 1 = 2
+console.log(factorial(3)); // 3! = 3 * 2 * 1 = 6
+console.log(factorial(4)); // 4! = 4 * 3 * 2 * 1 = 24
+console.log(factorial(5)); // 5! = 5 * 4 * 3 * 2 * 1 = 120
+```
+
+재귀 함수는 반복되는 처리를 반복문 없이 구현할 수 있다는 장점이 있지만 무한 반복에 빠질 위험이 있고, 이로 인해 스택 오버플로 에러를 발생시킬 수 있으므로 주의해서 사용해야 한다. 따라서 재귀 함수는 반복문을 사용하는 것보다 재귀 함수를 사용하는 편이 더 직관적으로 이해하기 쉬울 때만 한정적으로 사용하는 것이 바람직 하다.
+
+### 중첩 함수
+
+함수 내부에 정의된 함수를 nested function중첩 함수 또는 inner function내부 함수라 한다. 그리고 중첩 함수를 포함하는 함수는 outer function외부 함수라 부른다. 중첩 함수는 외부 함수 내부에서만 호출할 수 있다. 일반적으로 중첩 함수는 자시을 포함하는 외부 함수를 돕는 helper function헬퍼 함수의 역할을 한다.
+
+```javascript
+function outer() {
+    var x = 1
+
+    // 중첩 함수
+    function inner() {
+        var y = 2;
+        // 외부 함수의 변수를 참조할 수 있다.
+        console.log(x + y); // 3
+    }
+
+    inner();
+}
+
+outer();
+```
+
+ES6부터 함수 정의는 문이 위치할 수 있는 문맥이라면 어디든지 가능하다. 함수 선언문의 경우 ES6 이전에는 코드의 최상위 또는 다른 함수 내부에서만 정의할 수 있었으나 ES6부터는 if 문이나 for 문등의 코드 블록 내에서도 정의할 수 있다.
+
+단, 호이스팅으로 인해 혼란이 발생할 수도 있으므로 if 문이나 for 문 등의 코드 블록에서 함수 선언문을 통해 함수를 정의하는 것은 바람직하지 않다.
+
+
+
