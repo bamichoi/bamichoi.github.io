@@ -872,4 +872,68 @@ repeat(5, logOdds); // 1 3
 
 고차 함수는 매개변수를 통해 전달받은 콜백 함수의 호출 시점을 결정해서 호출한다. 다시 말해, 콜백 함수는 고차 함수에 의해 호출되며 이때 고차 함수는 필요에 따라콜백 함수에 인수를 전달할 수 있다. 따라서 고차 함수에 콜백함수를 전달할 때 콜백 함수를 호출하지 않고 함수 자체를 전달해야 한다.
 
+콜백 함수가 고차함수 내부에만 호출된다면 콜백 함수를 익명 함수 리터럴로 정의하면서 곧바로 고차 함수에 전달하는 것이 일반적이다.
 
+```javascript
+// 익명 함수 리터럴을 콜백 함수로 고차 함수에 전달한다.
+// 익명 함수 리터럴은 repeat 함수를 호출할 때마다 평가되어 함수 객체를 생성한다.
+
+repeat(5, function(i) {
+    if (i % 2) console.log(i);
+})
+```
+
+이때 콜백 함수로서 전달된 함수 리터럴은 고차 함수가 호출될 때마다 평가되어 함수 객체를 생성한다. 따라서 콜백 함수를 다른 곳에서도 호출할 필요가 있거나, 콜백 함수를 전달받는 함수가 자주 호출된다면 함수 외부에서 콜백 함수를 정의한 후 함수 참조를 고차 함수에 전달하는 편이 효율적이다.
+
+```javascript
+// logOdds 함수는 단 한 번만 생성된다.
+var logOdds = function (i) {
+    if (i % 2) console.log(i);
+};
+
+// 고차 함수에 함수 참조를 전달한다.
+repeat(5, logOdds); // 1 3
+```
+
+위 예제의 logOdds 함수는 단 한 번만 생성된다. 하지만 콜백 함수를 익명 함수 리터럴로 정의하면서 곧바로 고차 함수에 전달하면 고차 함수가 호출될 때마다 콜백 함수가 생성된다.
+
+콜백 함수는 함수형 프로그래밍 패러다임 뿐만 아니라 비동기 처리에 활용되는 중요한 패턴이다.
+
+```javascript
+// 콜백 함수를 사용한 이벤트 처리
+// myButton 버튼을 클릭하면 콜백 함수를 실행한다.
+document.getElementById('myButton').addEventListener('click', function() {
+    console.log('button clicked!');
+});
+
+// 콜백 함수를 사용한 비동기 처리
+// 1초 후에 메세지를 출력한다.
+setTimeout(function () {
+    console.log('1초 경과');
+}, 1000);
+```
+
+콜백 함수는 비동기 처리뿐 아니라 배열 고차 함수에도 사용된다. 자바스크립트에서 배열은 사용 빈도가 매우 높은 자료구조이고 배열을 다룰 때 배열 고차 함수는 매우 중요하다.
+
+```javascript
+// 콜백 함수를 사용하는 고차 함수 map
+var res = [1, 2, 3].map(function (item)) {
+    return item * 2;
+});
+
+console.log(res); // [2, 4, 6]
+
+// 콜백 함수를 사용하는 고차 함수 filter
+res = [1, 2, 3].finlter(function (item) {
+    return item % 2;
+});
+
+console.log(res); // [1, 3]
+
+// 콜백 함수를 사용하는 고차 함수 reduce
+res = [1, 2, 3].reduce(function (acc, cur) {
+    return acc + cur
+}, 0)
+
+console.log(res); // 6
+```
