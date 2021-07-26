@@ -20,7 +20,7 @@ user:
   name: Beomseok Choi
   pic: /assets/img/cat.jpg
   picAlt: "catbook"
-  job: Beginner Developer
+  job: Beginner FE Developer
   aboutme: true # comment this out if you don't need the 'about' page.
 
 exclude:
