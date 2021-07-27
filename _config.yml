@@ -1,4 +1,4 @@
-title: 바미의 개발블로그 #Your awesome title
+title: Bami Development Blog #Your awesome title
 email: #youremail@domain.com
 description: > # this means to ignore newlines until "baseurl"
   Write an awesome description for your new site here. You can edit this
@@ -17,10 +17,10 @@ google_analytics: #UA—XXXXXXXX-X
 disqus_shortname: #disqus shortname
 
 user:
-  name: Beomseok Choi
+  name: 최범석 Beomseok Choi
   pic: /assets/img/cat.jpg
   picAlt: "catbook"
-  job: Hypersexy FE Developer
+  job: FE Developer
   aboutme: true # comment this out if you don't need the 'about' page.
 
 exclude:
