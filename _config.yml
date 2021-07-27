@@ -20,7 +20,7 @@ user:
   name: 최범석 Beomseok Choi
   pic: /assets/img/cat.jpg
   picAlt: "catbook"
-  job: FE Developer
+  job: Baby FE Developer
   aboutme: true # comment this out if you don't need the 'about' page.
 
 exclude:
