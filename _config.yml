@@ -17,10 +17,10 @@ google_analytics: #UA—XXXXXXXX-X
 disqus_shortname: #disqus shortname
 
 user:
-  name: 최범석 Beomseok Choi
+  name: Beomseok Choi
   pic: /assets/img/cat.jpg
   picAlt: "catbook"
-  job: software developer
+  job: Software Developer
   aboutme: true # comment this out if you don't need the 'about' page.
 
 exclude:
