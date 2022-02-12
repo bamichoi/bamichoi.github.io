@@ -937,3 +937,35 @@ res = [1, 2, 3].reduce(function (acc, cur) {
 
 console.log(res); // 6
 ```
+### 순수 함수와 비순수 함수
+
+Pure function 순수함수 : 외부 상태에 의존하지도 않고 외부 사앹를 변경하지도 않는 부수효과가 없는 함수.  
+Impure function 비순수함수 : 외부 상태에 의존하거나 외부 상태를 변경하는 부수 효과가 있는 함수.  
+  
+순수 함수는 동일한 인수가 전달되면 언제나 동일한 값을 반환한다. 순수함수는 오직 매개변수를 통해 함수 내부로 전달된 인수에만 의존해 리턴값을 만든다. 순수함수는 함수 외부의 상태를 변경하지도 않는다.
+
+```javascript
+var count = 0;
+
+// increase는 순수함수
+function increase(n) {
+    return ++ n;
+}
+
+// 순수 함수가 반환한 값을 변수에 재할당해서 상태 변경
+count = increase(count);
+console.log(count) //1
+```
+
+비순수 함수는 외부의 상태에 따라 반환값이 달라진다. 비순수 함수는 외부 상태에 의존하고 함수의 외부 상태를 변경하는 side effect가 있다. 
+```javascript
+var count = 0;
+
+// increase는 순수함수
+function increase() {
+    return ++ count;
+}
+
+increase()
+cosnole.log(count): // 1
+```
